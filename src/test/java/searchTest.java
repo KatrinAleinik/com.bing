@@ -15,10 +15,10 @@ public class searchTest {
 
     @BeforeMethod
     public void setUp(){
-        System.setProperty("webdriver.gecko.driver", "/Users/greatkate/IdeaProjects/TestNG/src/test/recources/driver/geckodriver");
-        driver = new FirefoxDriver();
-        //System.setProperty("webdriver.chrome.driver","/Users/greatkate/IdeaProjects/comBingo/src/main/resources/chromedriver 2");
-        //driver = new ChromeDriver();
+        //System.setProperty("webdriver.gecko.driver", "/Users/greatkate/IdeaProjects/TestNG/src/test/recources/driver/geckodriver");
+        //driver = new FirefoxDriver();
+        System.setProperty("webdriver.chrome.driver","/Users/greatkate/IdeaProjects/comBingo/src/main/resources/chromedriver 2");
+        driver = new ChromeDriver();
         test = new ObjectBingoSearch(driver);
     }
 
@@ -51,16 +51,22 @@ public class searchTest {
     public void searchReq04(){
         test.search("!@#$%^&*()");
         Assert.assertEquals(expected, test.successSearch());
-        //Assert.assertEquals(test.GettingFirstRequest("!@#$%^&*()"),expected );
+        Assert.assertEquals(test.GettingFirstRequest("!@#$%^&*()"),expected );
     }
 
 
 
 
     @AfterMethod (alwaysRun =  true)
-    public void close(){
+    public void cookie(){
+
         driver.manage().deleteAllCookies();
         driver.close();
     }
+
+
+
+
+
 
 }
