@@ -1,10 +1,6 @@
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-
-
-
+import org.openqa.selenium.support.ui.*;
+import java.util.concurrent.TimeUnit;
 
 
 public class ObjectBingoSearch {
@@ -23,9 +19,11 @@ public class ObjectBingoSearch {
         element  = wait.until(ExpectedConditions.visibilityOfElementLocated(searchField));
     }
 
-    public void search (String searchRequest){
+    public void search  (String searchRequest) throws Exception{
         driver.findElement(searchField).sendKeys(searchRequest);
-        driver.findElement(searchField).sendKeys(Keys.ENTER);
+        Thread.sleep(2000);
+            driver.findElement(searchField).sendKeys(Keys.ENTER);
+
 
     }
 
