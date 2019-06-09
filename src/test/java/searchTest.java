@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import org.testng.annotations.Test;
 import atu.testrecorder.ATUTestRecorder;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,20 +20,21 @@ public class searchTest {
     //ATUTestRecorder recorder;
 
 
-    @DataProvider (name = "validInput")
-    public Object [] [] createValidData(){
-        return new Object[][]{
-                {"Portnov computer school", "Portnov"},
-                {"Запрос на русском языке", "русском"},
-                {"1234567890", "1234567890"},
-        };
-    }
+    @DataProvider (name = "testData")
+    public Object [][] createData(){
+        ReadExcelFile  config = new ReadExcelFile("/Users/greatkate/Documents/Java Apache files/JavaApacheExcel.xlsx");
 
-    @DataProvider (name = "invalidInput")
-    public Object [][] createInvalidData(){
-        return new Object [][]{
-                {"!@#$%^&*()", "!@#$%^&*()"},
-        };
+        int rows = config.getRowCount(0);
+
+        Object [] [] credentials = new Object[rows][2];
+
+        for(int i =0; i<rows; i++){
+
+            credentials[i][0]=config.getData(0, i, 0);
+            credentials[i][1]=config.getData(0, i, 1);
+        }
+
+        return  credentials;
     }
 
     @BeforeMethod
@@ -45,20 +47,14 @@ public class searchTest {
         test = new ObjectBingoSearch(driver);
     }
 
-    @Test (dataProvider = "validInput")
-    public void searchValidInput(String request, String result) throws Exception{
+    @Test (dataProvider = "testData")
+    public void searchInput(String request, String result) throws Exception{
         test.search(request);
         Assert.assertEquals(test.successSearch(),expected );
         Assert.assertEquals(test.GettingFirstRequest(result),expected );
 
     }
 
-    @Test (dataProvider = "invalidInput")
-    public void searchInvalidInput(String request, String result) throws Exception{
-        test.search(request);
-        Assert.assertEquals(expected, test.successSearch());
-        Assert.assertEquals(test.GettingFirstRequest(result),expected );
-    }
 
 
 
