@@ -1,0 +1,5 @@
+data:
+  - input: "Aladdin"
+    expected: "aladdin"
+  - input: "java10"
+    expected: "java"
